@@ -25,14 +25,16 @@ class CafeKioskTest {
         System.out.println(">>> 담긴 음료: " + cafeKiosk.getBeverages().get(0).getName());
     }
 
+//    @DisplayName("음료 1개 추가 테스트")
+    @DisplayName("음료 1개를 추가하면 주문 목록에 담긴다.")
     @Test
-    void add(){
+    void 음료_1개_추가_테스트(){
         //given
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
         cafeKiosk.add(americano);
 
-        assertThat(cafeKiosk.getBeverages()).hasSize(2);
+        assertThat(cafeKiosk.getBeverages()).hasSize(1);
         assertThat(cafeKiosk.getBeverages().size()).isEqualTo(1);
         assertThat(cafeKiosk.getBeverages().get(0).getName()).isEqualTo("아메리카노");
     }
@@ -86,6 +88,25 @@ class CafeKioskTest {
         assertThat(cafeKiosk.getBeverages()).isEmpty();
 
     }
+    @DisplayName("주문 목록에 담긴 상품들의 총 금액을 계산할 수 있다")
+    @Test
+    void calculateTotalPrice(){
+        // given
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        Americano americano = new Americano();
+        Latte latte = new Latte();
+
+        cafeKiosk.add(americano);
+        cafeKiosk.add(latte);
+
+        // when
+        int totalPrice = cafeKiosk.calculateTotalPrice();
+
+        // then
+        assertThat(totalPrice).isEqualTo(8500);
+
+    }
+
 
     @Test
     void createOrder(){
